@@ -4,7 +4,7 @@ import SignupPage from "./components/SignUp";
 import LoginPage from "./components/Login";
 import getTheme from "./theme";
 import { useState, useEffect } from "react";
-import { ThemeProvider, useTheme } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 
 function App() {
   const [theme, setTheme] = useState("default");

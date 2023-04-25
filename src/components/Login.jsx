@@ -1,17 +1,41 @@
-import React, { useState } from "react";
+import React from "react";
+import { makeStyles } from "@mui/styles";
 import {
   Button,
   TextField,
-  ThemeProvider,
+  FormControl,
+  Box,
+  Container,
   Typography,
 } from "@mui/material";
-import { useTheme } from '@mui/material/styles';
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(4),
+    minWidth: 120,
+  },
+  center: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+  },
+  button: {
+    transition: theme.transitions.create(['transform'], {
+      duration: theme.transitions.duration.standard,
+      easing: theme.transitions.easing.easeinOut,
+  }),
+  '&:hover': {
+    transform: 'scale(1.1)'
+  }
+  }
+}));
 
 const LoginPage = () => {
   const [date, setDate] = React.useState('');
   const [patientName, setPatientName] = React.useState('');
   const [appointmentDate, setAppointmentDate] = React.useState('');
-  const currentTheme = useTheme();
+  const classes = useStyles();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -19,50 +43,37 @@ const LoginPage = () => {
   };
 
   return (
-    <ThemeProvider theme={currentTheme}>
-    <div className="App">
-      <form onSubmit={handleSubmit}>
-        <Typography variant="h4">Check Appointment</Typography>
-        <br />
-        <TextField
-          required
-          id="date"
-          label="Date"
-          type="date"
-          value={date}
-          onChange={(event) => setDate(event.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          sx={{ mb: 2 }}
-        /> <br />
-        <TextField
-          required
-          id="patientName"
-          label="Patient Name"
-          type="text"
-          value={patientName}
-          onChange={(event) => setPatientName(event.target.value)}
-          sx={{ mb: 2 }}
-        /> <br />
-        <TextField
-          required
-          id="appointmentDate"
-          label="Appointment Date"
-          type="date"
-          value={appointmentDate}
-          onChange={(event) => setAppointmentDate(event.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          sx={{ mb: 2 }}
-        /> <br />
-        <Button variant="contained" type="submit">
-          Check Appointment
-        </Button>
-      </form>
-    </div>
-    </ThemeProvider>
+    <Box className={classes.center}>
+      <Container maxWidth="sm">
+        <form onSubmit={handleSubmit}>
+          <Typography variant='h3'  color="primary">Check Appointment</Typography>
+          <TextField
+            label="Date"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Patient Name"
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Problem"
+            fullWidth
+            margin="normal"
+          />
+          <FormControl className={classes.formControl} fullWidth margin="normal">
+          </FormControl>
+          <Button type="submit" variant="contained" color="primary" fullWidth className={classes.button}>
+            Check
+          </Button>
+        </form>
+      </Container>
+    </Box>
   );
 };
 
