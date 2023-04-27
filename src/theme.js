@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
+
 const getTheme = (theme) => {
   const themeOptions = {
     google: {
@@ -26,6 +27,9 @@ const getTheme = (theme) => {
         },
         secondary: {
           main: "#FFC107",
+        },
+        background: {
+          default: "#f3f3f3",
         },
       },
 
@@ -79,9 +83,6 @@ const getTheme = (theme) => {
           fontSize: '0.875rem',
           fontWeight: 500,
         },
-      },
-      background: {
-        default: "#F1F3F4",
       },
       breakpoints: {
         values: {
@@ -192,6 +193,10 @@ const getTheme = (theme) => {
         secondary: {
           main: "#36c5f0",
         },
+        background: {
+          paper: "#fff",
+          default : "#f1f3f4"
+        }
       },
 
       typography: {
@@ -554,6 +559,8 @@ const getTheme = (theme) => {
         background: {
           default: "#F1F3F4",
         },
+        backgroundColor: "#fff",
+        color : "#000"
       },
       breakpoints: {
         values: {
@@ -570,6 +577,8 @@ const getTheme = (theme) => {
         background: {
           default : "#000000"
         },
+        backgroundColor: "#000",
+        color : "#fff"
       }
     }
   };

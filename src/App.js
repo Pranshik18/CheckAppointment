@@ -4,27 +4,30 @@ import SignupPage from "./components/SignUp";
 import LoginPage from "./components/Login";
 import getTheme from "./theme";
 import { useState, useEffect } from "react";
-import { ThemeProvider } from "@mui/material";
-
+import { Paper, ThemeProvider } from "@mui/material";
+import ThemeContext from "./themecontext";
 function App() {
-  const [theme, setTheme] = useState("default");
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const themeName = params.get("theme");
-    setTheme(themeName || "default");
+    setTheme(themeName || "light");
   }, []);
 
   const currentTheme = getTheme(theme);
-
   return (
     <ThemeProvider theme={currentTheme}>
+      <ThemeContext.Provider value={{ theme, setTheme }}>
+        <Paper style={{height:'100vh' , backgroundColor:currentTheme.palette.backgroundColor , color:currentTheme.palette.color}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<SignupPage />} />
           <Route path="/appointment" element={<LoginPage />} />
         </Routes>
-      </BrowserRouter>
+          </BrowserRouter>
+          </Paper>
+        </ThemeContext.Provider>
     </ThemeProvider>
   );
 }

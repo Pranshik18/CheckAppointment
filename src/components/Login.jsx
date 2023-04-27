@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@mui/styles";
 import {
   Button,
@@ -7,6 +7,7 @@ import {
   Box,
   Container,
   Typography,
+  CssBaseline,
 } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   '&:hover': {
     transform: 'scale(1.1)'
   }
-  }
+  },
 }));
 
 const LoginPage = () => {
@@ -42,38 +43,70 @@ const LoginPage = () => {
     // Handle form submission logic
   };
 
+
+
   return (
     <Box className={classes.center}>
       <Container maxWidth="sm">
         <form onSubmit={handleSubmit}>
           <Typography variant='h3'  color="primary">Check Appointment</Typography>
           <TextField
-            label="Date"
             type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
             fullWidth
             margin="normal"
+
+            InputLabelProps={{
+              style: {
+                color: "red",
+              },
+            }}
+            inputProps={{
+              style: {
+                border: "1px solid grey",
+                color: "red",
+              },
+            }}
           />
           <TextField
             label="Patient Name"
             fullWidth
             margin="normal"
+            InputLabelProps={{
+              style: {
+                color: "red",
+              },
+            }}
+            inputProps={{
+              style: {
+                border: "1px solid grey",
+                color: "red",
+              },
+            }}
           />
           <TextField
             label="Problem"
             fullWidth
             margin="normal"
+            InputLabelProps={{
+              style: {
+                color: "red",
+              },
+            }}
+            inputProps={{
+              style: {
+                border: "1px solid grey",
+                color: "red",
+              },
+            }}
           />
           <FormControl className={classes.formControl} fullWidth margin="normal">
           </FormControl>
           <Button type="submit" variant="contained" color="primary" fullWidth className={classes.button}>
             Check
-          </Button>
+            </Button>
         </form>
       </Container>
-    </Box>
+      </Box>
   );
 };
 
