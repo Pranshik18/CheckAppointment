@@ -4,6 +4,7 @@ import { createTheme } from "@mui/material/styles";
 const getTheme = (theme) => {
   const themeOptions = {
     google: {
+      spacing : 6,
       transitions: {
         easing: {
           easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -95,6 +96,8 @@ const getTheme = (theme) => {
       },
     },
     facebook: {
+
+      spacing : 6,
       transitions: {
         easing: {
           easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -186,6 +189,8 @@ const getTheme = (theme) => {
       },
     },
     slack: {
+
+      spacing : 6,
       palette: {
         primary: {
           main: "#4a154b",
@@ -281,6 +286,7 @@ const getTheme = (theme) => {
       },
     },
     instagram: {
+      spacing : 6,
       transitions: {
         easing: {
           easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -372,6 +378,8 @@ const getTheme = (theme) => {
       },
     },
     whatsapp: {
+
+      spacing : 6,
       transitions: {
         easing: {
           easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -463,6 +471,7 @@ const getTheme = (theme) => {
       },
     },
     microsoft: {
+      spacing : 6,
       transitions: {
         easing: {
           easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -556,9 +565,6 @@ const getTheme = (theme) => {
     light: {
       palette: {
         mode: "light",
-        background: {
-          default: "#F1F3F4",
-        },
         backgroundColor: "#fff",
         color : "#000"
       },
@@ -575,9 +581,9 @@ const getTheme = (theme) => {
     dark: {
       palette: {
         background: {
-          default : "#000000"
+          default : "#121212"
         },
-        backgroundColor: "#000",
+        backgroundColor: "#121212",
         color : "#fff"
       }
     }

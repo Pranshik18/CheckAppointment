@@ -1,203 +1,138 @@
-import React, { useContext, useState } from "react";
-import { makeStyles } from "@mui/styles";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
+import React from "react";
 import {
   Box,
   Container,
-  TextField,
   Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import ThemeContext from "../themecontext";
-import { color } from "@mui/system";
+import Header from "./Header";
+import MobileStepper from '@mui/material/MobileStepper';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import { autoPlay } from 'react-swipeable-views-utils';
+import SwipeableViews from 'react-swipeable-views';
+import { useTheme } from "@emotion/react";
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(2),
-    minWidth: 120,
-    color: "red",
+
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+
+const images = [
+  {
+    label: 'San Francisco – Oakland Bay Bridge, United States',
+    imgPath:
+    'https://www.pngplay.com/wp-content/uploads/1/Need-For-Speed-Car-Transparent-Background.png',
   },
-  center: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
+  {
+    label: 'Bird',
+    imgPath:
+      'https://editzstock.com/wp-content/uploads/2022/06/Red-lamborghini-transparent-background.png',
   },
-  button: {
-    transition: theme.transitions.create(["transform"], {
-      duration: theme.transitions.duration.standard,
-      easing: theme.transitions.easing.easeinOut,
-    }),
-    "&:hover": {
-      transform: "scale(1.1)",
-    },
+  {
+    label: 'Bali, Indonesia',
+    imgPath:
+      'https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/homepage/families-gallery/2023/revuelto/revuelto_m.png',
   },
-  logo_button: {
-    width: "5%",
-    transition: theme.transitions.create(["transform"], {
-      duration: theme.transitions.duration.standard,
-      easing: theme.transitions.easing.easeinOut,
-    }),
-    "&:hover": {
-      transform: "scale(1.4)",
-    },
+  {
+    label: 'Goč, Serbia',
+    imgPath:
+      'https://www.lamborghini.com/sites/it-en/files/DAM/lamborghini/facelift_2019/model_detail/menu/09_09/menu_asterion.png',
   },
-}));
+];
+
+
 
 const AddAppointment = () => {
-  const classes = useStyles();
-  const [date, setDate] = useState("");
-  const [patientName, setPatientName] = useState("");
-  const [problem, setProblem] = useState("");
-  const [appointmentDate, setAppointmentDate] = useState("");
+  
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const maxSteps = images.length;
   const navigate = useNavigate("");
 
-  const handleDateChange = (event) => {
-    setDate(event.target.value);
+ 
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
-  const handlePatientNameChange = (event) => {
-    setPatientName(event.target.value);
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleProblemChange = (event) => {
-    setProblem(event.target.value);
+  const handleStepChange = (step) => {
+    setActiveStep(step);
   };
 
-  const handleAppointmentDateChange = (event) => {
-    setAppointmentDate(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    navigate("/appointment");
-    // handle form submission here
-  };
-
-  const { theme, setTheme } = useContext(ThemeContext);
-  console.log(theme);
-  const handleThemeChange = () => {
-    if (theme !== "dark") {
-      return setTheme("dark");
-    } else {
-      return setTheme("light");
-    }
-  };
-
-  return (
-    <Box className={classes.center}>
+  return (<>
+    <Header />
       <Container maxWidth="sm">
-        <Box className={classes.logo_button}>
-          {theme === "light" ? (
-            <DarkModeIcon onClick={handleThemeChange} />
-          ) : (
-            <LightModeIcon onClick={handleThemeChange} />
-          )}
-        </Box>
-        <form onSubmit={handleSubmit}>
-          <Typography variant="h3" color="primary">
-            Add Appointment
-          </Typography>
-          <TextField
-            type="date"
-            value={date}
-            onChange={handleDateChange}
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              style: {
-                color: "red",
-              },
-            }}
-            inputProps={{
-              style: {
-                border: "1px solid grey",
-                color: "red",
-              },
-            }}
-          />
-          <TextField
-            label="Patient Name"
-            value={patientName}
-            onChange={handlePatientNameChange}
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              style: {
-                color: "red",
-              },
-            }}
-            inputProps={{
-              style: {
-                border: "1px solid grey",
-                color: "red",
-              },
-            }}
-          />
-          <TextField
-            label="Problem"
-            value={problem}
-            onChange={handleProblemChange}
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              style: {
-                color: "red",
-              },
-            }}
-            inputProps={{
-              style: {
-                border: "1px solid grey",
-                color: "red",
-              },
-            }}
-          />
-          <FormControl
-            className={classes.formControl}
-            fullWidth
-            margin="normal"
-            sx={{ border: "1px solid grey" }}
-          >
-            <InputLabel id="appointment-date-label" sx={{ color: "red" }}>
-              Select Appointment Date
-            </InputLabel>
-            <Select
-              labelId="appointment-date-label"
-              value={appointmentDate}
-              onChange={handleAppointmentDateChange}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={"2023-05-01"}>May 1, 2023</MenuItem>
-              <MenuItem value={"2023-05-02"}>May 2, 2023</MenuItem>
-              <MenuItem value={"2023-05-03"}>May 3, 2023</MenuItem>
-              <MenuItem value={"2023-05-04"}>May 4, 2023</MenuItem>
-              <MenuItem value={"2023-05-05"}>May 5, 2023</MenuItem>
-              <MenuItem value={"2023-05-06"}>May 6, 2023</MenuItem>
-              <MenuItem value={"2023-05-07"}>May 7, 2023</MenuItem>
-              <MenuItem value={"2023-05-08"}>May 8, 2023</MenuItem>
-              <MenuItem value={"2023-05-09"}>May 9, 2023</MenuItem>
-            </Select>
-          </FormControl>
+          <Typography variant="h3">Make your life easy</Typography>
+
+          <Box sx={{ maxwidth: 400 , flexGrow:1}}>
+      <AutoPlaySwipeableViews
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        index={activeStep}
+        onChangeIndex={handleStepChange}
+        enableMouseEvents
+      >
+        {images.map((step, index) => (
+          <div key={step.label}>
+            {Math.abs(activeStep - index) <= 2 ? (
+              <Box
+                component="img"
+                sx={{
+                  height: 300,
+                  display: 'block',
+                  maxWidth: 500,
+                  overflow: 'hidden',
+                  width: '100%',
+                }}
+                src={step.imgPath}
+                alt={step.label}
+              />
+            ) : null}
+          </div>
+        ))}
+      </AutoPlaySwipeableViews>
+      <MobileStepper
+        steps={maxSteps}
+        position="static"
+        activeStep={activeStep}
+        nextButton={
           <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-            className={classes.button}
+            size="small"
+            onClick={handleNext}
+            disabled={activeStep === maxSteps - 1}
           >
-            Add Appointment
+            Next
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowLeft />
+            ) : (
+              <KeyboardArrowRight />
+            )}
           </Button>
-        </form>
-      </Container>
-    </Box>
+        }
+        backButton={
+          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowRight />
+            ) : (
+              <KeyboardArrowLeft />
+            )}
+            Back
+          </Button>
+        }
+      />
+        </Box>
+      <Button variant="contained" color="primary"
+      onClick={()=> navigate('/buy')} sx={{marginLeft:'120px' , marginTop:'40px'}}>
+          Buy Car
+      </Button>
+      <Button variant="contained" color="primary"
+      onClick={()=> navigate('/sell')} sx={{marginLeft:'120px' , marginTop:'40px'}}>
+          Sell Car
+        </Button>
+    </Container>
+    </>
   );
 };
 
